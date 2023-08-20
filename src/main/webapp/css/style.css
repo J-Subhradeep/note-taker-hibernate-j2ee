@@ -1,0 +1,19 @@
+body{
+    background-color: antiquewhite;
+}
+.navcolor{
+	background-color: cornflowerblue;
+}
+.login-form{
+    width: 300px;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: white
+    ;
+    box-shadow: 5px 5px 5px grey;
+    position:absolute;
+    left:50%;
+    transform: translate(-50%,0);
+    margin-top: 80px;
+    border-radius: 5px;
+}
