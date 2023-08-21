@@ -15,7 +15,21 @@
 		<div class="row">
 			<div class="col-12">
 
-
+				<h1>
+				<%
+				int user_id = session.getAttribute("user_id")!=null?(int)session.getAttribute("user_id"):0 ;
+				
+				String user_email = session.getAttribute("user_email")!=null?(String)session.getAttribute("user_email"):"";
+				
+				if(user_id==0){
+					response.sendRedirect("login.jsp");
+				}
+				else{
+					out.println("User Email is : "+user_email);
+					
+				}
+				%>
+				</h1>
 				<div class="card mt-3" >
 					<div class="card-body">
 						<h5 class="card-title">Card title</h5>

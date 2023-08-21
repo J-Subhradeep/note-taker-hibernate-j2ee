@@ -15,12 +15,25 @@
 	<%@include file="navbar.jsp"%>
 
 	<div class="container">
+	<h1>
+		<%
+		int user_id = session.getAttribute("user_id") != null ? (int) session.getAttribute("user_id") : 0;
 
+		String user_email = session.getAttribute("user_email") != null ? (String) session.getAttribute("user_email") : "";
 
-		<form id="form-1" action="SaveNoteServlet">
+		if (user_id == 0) {
+			response.sendRedirect("login.jsp");
+		} else {
+			out.println("User Email is : " + user_email);
+
+		}
+		%>
+	</h1>
+
+		<form id="form-1" action="AddNoteServlet" method="post">
 			<div class="mb-3 mt-5">
 				<label for="exampleFormControlInput1" class="form-label">Title
-					</label> <input type="text" class="form-control" name="title"
+				</label> <input type="text" class="form-control" name="title"
 					id="exampleFormControlInput1" placeholder="Title">
 			</div>
 			<div class="mb-3">
@@ -29,6 +42,7 @@
 				<textarea class="form-control" id="exampleFormControlTextarea1"
 					rows="3" name="content"></textarea>
 			</div>
+			<input type="hidden" value="<%= user_id %>" name="user_id">
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 	</div>

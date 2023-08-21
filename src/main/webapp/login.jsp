@@ -13,7 +13,12 @@
 
 <body>
 	<%@include file="navbar.jsp"%>
-
+	<%
+	int user_id = session.getAttribute("user_id")!=null?(int)session.getAttribute("user_id"):0 ;
+	if(user_id!=0){
+		response.sendRedirect("index.jsp");
+	}
+	%>
 	<div class="container">
 		<div class="login-form ">
 			<form action="LoginServlet" method="post">

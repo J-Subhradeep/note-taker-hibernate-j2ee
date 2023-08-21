@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 
@@ -43,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 		
 		
 		Session session = HibernateConfig.getSession();
-//		check if email exists
+//		check if user with this email exists
 		CriteriaBuilder cb= session.getCriteriaBuilder();
 		CriteriaQuery<User> cq = cb.createQuery(User.class);
 		Root<User> root = cq.from(User.class);
@@ -53,6 +54,8 @@ public class LoginServlet extends HttpServlet {
 		User user = null;
 		if(!u.toString().equals("[]")) {
 			user = (User)query.getSingleResult();
+			
+//			hashing current password and comparing with original password
 			try {
 				MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
 				messageDigest.update(password.getBytes());
@@ -65,6 +68,9 @@ public class LoginServlet extends HttpServlet {
 				
 				System.out.println("Authenticated User");
 				request.setAttribute("user", "success");
+				HttpSession s = request.getSession();
+				s.setAttribute("user_id", user.getUser_id());
+				s.setAttribute("user_email", user.getEmail());
 			}
 			else {
 				System.out.println("Not Authenticated");
@@ -75,7 +81,7 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute("user", "false");
 		}
 		
-//		hashing current password and comparing with original password
+
 	
 		
 		
